@@ -1,35 +1,33 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
-import { styled } from "@mui/material"
 import Stack from "@mui/material/Stack"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
 import Grid2 from "@mui/material/Grid2"
 import SvgIcon from "@mui/material/SvgIcon"
+import IconButton from "@mui/material/IconButton"
 
 import MUIImage from "@/components/mui-image"
-import Dropzone from "./dropzone"
+import ImagesDropzone from "./images-dropzone"
+import { alpha } from "@mui/material"
 
 export default function LibraryDropArea({}) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [images, setImages] = useState<File[]>([])
 
-  const handleUploadedFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setImages((images) => [...images, ...acceptedFiles.slice(0, 10)])
+  }, [])
 
-    if (!file) return
+  useEffect(() => {
+    if (!images?.length) return
 
-    const imageUrl = URL.createObjectURL(file)
-
-    setImageUrl(imageUrl)
-  }
+    const lastestAddedImage = images[images.length - 1]
+  }, [images])
 
   return (
     <Stack
       width={500}
       height="100%"
-      p={2}
       boxShadow={(theme) => theme.shadows.apple}
       bgcolor="black.100"
       overflow="hidden"
@@ -39,61 +37,67 @@ export default function LibraryDropArea({}) {
         borderBottomRightRadius: 12,
       }}
     >
-      <Dropzone />
-      {/* <Stack gap="1rem">
-        <Stack
-          width="50%"
-          alignSelf="center"
-          alignItems="center"
-          borderRadius="0.25rem"
-          padding="0.5rem"
-        >
-          {imageUrl ? (
-            <MUIImage
-              src={imageUrl}
-              title="Preview da image"
-              alt="Preview da image"
-              width={250}
-              height={250}
-            />
-          ) : (
-            <Stack width={250} height={250} alignItems="center" justifyContent="center">
-              <Typography
-                variant="h6"
-                color="#FFFFFF"
-                fontFamily="var(--font-poppins)"
-                fontWeight="400"
-                textAlign="center"
-              >
-                Nenhuma imagem selecionada
-              </Typography>
-            </Stack>
-          )}
-        </Stack>
+      {Boolean(images?.length) ? (
+        <Stack position="relative" height="100%" width="100%" sx={{ overflowY: "auto" }}>
+          <Grid2 container direction="row" spacing={2} width="100%" height="100%">
+            {images.map((image, imageIndex) => {
+              const hasMultipleImages = images.length > 1
 
-        <Button
-          color={false ? "error" : undefined}
-          component="label"
-          role={undefined}
-          variant="contained"
-          tabIndex={-1}
-        >
-          Carregue uma imagem
-          <VisuallyHiddenInput onChange={handleUploadedFile} type="file" />
-        </Button>
-      </Stack> */}
+              return (
+                <Grid2 key={image.name} size={hasMultipleImages ? 6 : 12}>
+                  <Stack
+                    position="relative"
+                    width="100%"
+                    height={hasMultipleImages ? 192 : "100%"}
+                    borderRadius={1.25}
+                    overflow="hidden"
+                  >
+                    <Stack position="absolute" top={0} right={0} zIndex={1}>
+                      <IconButton
+                        onClick={() =>
+                          setImages((prevImages) =>
+                            prevImages.filter((_, index) => index !== imageIndex)
+                          )
+                        }
+                      >
+                        <SvgIcon viewBox="0 0 24 24" sx={{ color: "white.64" }}>
+                          <path
+                            fill="currentColor"
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                          />
+                        </SvgIcon>
+                      </IconButton>
+                    </Stack>
+
+                    <Stack width="100%" height="100%" position="relative">
+                      <MUIImage
+                        src={URL.createObjectURL(image)}
+                        title="Preview da image"
+                        alt="Preview da image"
+                        fill
+                        priority
+                        sizes="(max-width: 600px) 100vw, 600px"
+                      />
+
+                      <Stack
+                        position="absolute"
+                        bgcolor={(theme) => alpha(theme.palette.common.black, 0.1)}
+                        sx={{ inset: 0 }}
+                      />
+                    </Stack>
+                  </Stack>
+                </Grid2>
+              )
+            })}
+          </Grid2>
+
+          <Stack position="absolute" p={1.25} sx={{ inset: 0 }}>
+            <ImagesDropzone onDrop={onDrop} disableOverlay />
+          </Stack>
+        </Stack>
+      ) : (
+        <ImagesDropzone onDrop={onDrop} />
+      )}
     </Stack>
   )
 }
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-})
