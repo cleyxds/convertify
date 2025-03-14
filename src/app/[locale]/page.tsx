@@ -1,16 +1,28 @@
-import { styled } from "@mui/material"
+"use client"
+
+import { useCallback, useState } from "react"
+
 import Stack from "@mui/material/Stack"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Grid2 from "@mui/material/Grid2"
-import SvgIcon from "@mui/material/SvgIcon"
 
 import Background from "@/components/background"
 import SideBar from "@/components/side-bar"
 import Library from "@/components/library"
 import LibraryDropArea from "@/components/library-drop-area"
+import DownloadList from "@/components/download-list"
 
 export default function page() {
+  const [downloableImages, setDownloableImages] = useState<BackendImage[]>([])
+
+  const onDownloadImages = useCallback((newImages: BackendImage[]) => {
+    setDownloableImages((images) => [...images, ...newImages])
+  }, [])
+
+  const clearDownloadList = useCallback(() => {
+    setDownloableImages([])
+  }, [])
+
+  const hasDownloadList = !!downloableImages.length
+
   return (
     <Stack component="main">
       <Background>
@@ -19,7 +31,14 @@ export default function page() {
 
           <Stack direction="row" height={400}>
             <Library />
-            <LibraryDropArea />
+            <LibraryDropArea
+              hasDownloadList={hasDownloadList}
+              onDownloadImages={onDownloadImages}
+            />
+            <DownloadList
+              downloableImages={downloableImages}
+              clearDownloadList={clearDownloadList}
+            />
           </Stack>
         </Stack>
       </Background>

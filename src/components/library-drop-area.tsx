@@ -1,40 +1,72 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 
+import { alpha } from "@mui/material"
 import Stack from "@mui/material/Stack"
 import Grid2 from "@mui/material/Grid2"
 import SvgIcon from "@mui/material/SvgIcon"
 import IconButton from "@mui/material/IconButton"
+import Button from "@mui/material/Button"
 
 import MUIImage from "@/components/mui-image"
 import ImagesDropzone from "./images-dropzone"
-import { alpha } from "@mui/material"
 
-export default function LibraryDropArea({}) {
+export default function LibraryDropArea({
+  onDownloadImages,
+  hasDownloadList,
+}: {
+  onDownloadImages: (images: BackendImage[]) => void
+  hasDownloadList: boolean
+}) {
   const [images, setImages] = useState<File[]>([])
+  const [loading, setLoading] = useState(false)
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setImages((images) => [...images, ...acceptedFiles.slice(0, 10)])
   }, [])
 
-  useEffect(() => {
-    if (!images?.length) return
+  async function handleConvertImages() {
+    try {
+      setLoading(true)
 
-    const lastestAddedImage = images[images.length - 1]
-  }, [images])
+      if (!images?.length) return alert("Nenhuma imagem para converter")
+
+      const formData = new FormData()
+      images.forEach((image) => {
+        formData.append("images", image)
+      })
+
+      await fetch("http://localhost:3001/api/convert-images", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data: BackendReturn) => {
+          onDownloadImages(data.images)
+          setImages([])
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
+    } catch (error) {
+      console.error("Error:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <Stack
       width={500}
       height="100%"
-      boxShadow={(theme) => theme.shadows.apple}
       bgcolor="black.100"
       overflow="hidden"
+      position="relative"
       sx={{
         backdropFilter: "blur(30px)",
-        borderTopRightRadius: 12,
-        borderBottomRightRadius: 12,
+        borderTopRightRadius: hasDownloadList ? 0 : 12,
+        borderBottomRightRadius: hasDownloadList ? 0 : 12,
       }}
     >
       {Boolean(images?.length) ? (
@@ -98,6 +130,27 @@ export default function LibraryDropArea({}) {
       ) : (
         <ImagesDropzone onDrop={onDrop} />
       )}
+
+      <Stack position="absolute" bottom={0} right={0} p={1.25}>
+        <Button
+          onClick={handleConvertImages}
+          loading={loading}
+          disabled={loading}
+          variant="contained"
+          sx={{
+            bgcolor: "black.100",
+            color: "white.100",
+            transition: "opacity 0.3s",
+
+            "&:hover": {
+              opacity: 0.8,
+              transition: "opacity 0.3s",
+            },
+          }}
+        >
+          Converter
+        </Button>
+      </Stack>
     </Stack>
   )
 }

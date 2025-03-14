@@ -10,7 +10,7 @@ export default function Library() {
       width={240}
       height="100%"
       p={2}
-      boxShadow={(theme) => theme.shadows.apple}
+      boxShadow={(theme: any) => theme.shadows.apple}
       bgcolor="black.100"
       overflow="hidden"
       sx={{

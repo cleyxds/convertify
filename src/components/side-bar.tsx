@@ -11,7 +11,7 @@ export default function SideBar() {
       width={40.8}
       height="fit-content"
       p={0.75}
-      boxShadow={(theme) => theme.shadows.apple}
+      boxShadow={(theme: any) => theme.shadows.apple}
       borderRadius={9999}
       bgcolor="black.100"
       sx={{ backdropFilter: "blur(30px)" }}
