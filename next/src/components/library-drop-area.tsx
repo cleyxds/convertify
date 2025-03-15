@@ -37,7 +37,7 @@ export default function LibraryDropArea({
         formData.append("images", image)
       })
 
-      await fetch("http://localhost:3001/api/convert-images", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/convert-images`, {
         method: "POST",
         body: formData,
       })

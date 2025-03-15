@@ -1,0 +1,41 @@
+services:
+  convertify-front-end:
+    container_name: convertify-front-end
+    build:
+      context: ./next
+      dockerfile: prod.Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost
+    restart: always
+    expose:
+      - 3000
+    networks:
+      - reverse-proxy
+
+  convertify-back-end:
+    container_name: convertify-back-end
+    build:
+      context: ./api
+      dockerfile: prod.Dockerfile
+    restart: always
+    expose:
+      - 3001
+    networks:
+      - reverse-proxy
+
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: nginx:1.26.3
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - reverse-proxy
+    depends_on:
+      - convertify-front-end
+      - convertify-back-end
+
+networks:
+  reverse-proxy:
+    driver: bridge

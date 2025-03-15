@@ -1,0 +1,20 @@
+{
+  "name": "convert-to-webp",
+  "main": "index.js",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^18.0.0"
+  },
+  "dependencies": {
+    "sucrase": "^3.20.3",
+    "@fastify/cors": "^11.0.0",
+    "@fastify/multipart": "^9.0.3",
+    "fastify": "^5.2.1",
+    "sharp": "^0.33.5",
+    "zod": "^3.24.2"
+  },
+  "scripts": {
+    "build": "sucrase src -d build --transforms imports,typescript",
+    "start": "node build/index.js"
+  }
+}

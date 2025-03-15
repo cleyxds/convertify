@@ -1,0 +1,11 @@
+/build
+/node_modules
+
+nodemon.json
+README.md
+LICENSE.md
+Dockerfile
+
+.dockerignore
+.git
+.gitignore
