@@ -17,7 +17,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "cleyxds-nextjs-mui-template",
+  title: "Convertify",
   description: "A template for Next.js with MUI",
 }
 

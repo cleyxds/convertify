@@ -8,11 +8,6 @@ declare module "@mui/material/styles" {
     75?: string
     64?: string
   }
-
-  interface Shadows {
-    apple: string
-  }
-
   interface Palette {
     black: CustomPaletteColor
     white: CustomPaletteColor
@@ -39,7 +34,7 @@ const theme = createTheme({
   shadows: {
     apple:
       "0px 4.8px 3.6px rgba(0, 0, 0, 0.05), inset 0px -0.6px 0.6px rgba(255, 255, 255, 0.25), inset 0px 0.6px 0.6px rgba(255, 255, 255, 0.25)",
-  },
+  } as any,
   palette: {
     black: {
       "100": "rgba(0, 0, 0, 0.1)",
