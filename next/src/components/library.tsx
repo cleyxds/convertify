@@ -7,8 +7,8 @@ import SvgIcon from "@mui/material/SvgIcon"
 export default function Library() {
   return (
     <Stack
-      width={240}
-      height="100%"
+      width={{ lg: 240, xs: "80dvw" }}
+      height={{ lg: "100%", xs: "50%" }}
       p={2}
       boxShadow={(theme: any) => theme.shadows.apple}
       bgcolor="black.100"
@@ -16,7 +16,9 @@ export default function Library() {
       sx={{
         backdropFilter: "blur(30px)",
         borderTopLeftRadius: 12,
-        borderBottomLeftRadius: 12,
+        borderBottomLeftRadius: { lg: 12, xs: 0 },
+        borderTopRightRadius: { lg: 0, xs: 12 },
+        borderBottomRightRadius: { lg: 0, xs: 0 },
       }}
     >
       <Stack gap={2}>

@@ -58,15 +58,16 @@ export default function LibraryDropArea({
 
   return (
     <Stack
-      width={500}
-      height="100%"
+      width={{ lg: 500, xs: "80dvw" }}
+      height={{ lg: "100%", xs: "25%" }}
       bgcolor="black.100"
       overflow="hidden"
       position="relative"
       sx={{
         backdropFilter: "blur(30px)",
-        borderTopRightRadius: hasDownloadList ? 0 : 12,
+        borderTopRightRadius: hasDownloadList ? 0 : { lg: 12, xs: 0 },
         borderBottomRightRadius: hasDownloadList ? 0 : 12,
+        borderBottomLeftRadius: hasDownloadList ? 0 : 12,
       }}
     >
       {Boolean(images?.length) ? (

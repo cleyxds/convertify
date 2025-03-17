@@ -15,24 +15,26 @@ export default function DownloadList({
 
   return (
     <Stack
-      width={150}
-      height="100%"
+      width={{ lg: 150, xs: "80dvw" }}
+      height={{ lg: "100%", xs: 150 }}
       bgcolor="black.100"
       position="relative"
+      direction={{ lg: "column", xs: "row" }}
       sx={{
         backdropFilter: "blur(30px)",
-        borderTopRightRadius: 12,
+        borderTopRightRadius: { lg: 12, xs: 0 },
         borderBottomRightRadius: 12,
-        overflowY: "auto",
-        overflowX: "hidden",
+        borderBottomLeftRadius: { lg: 0, xs: 12 },
+        overflowY: { lg: "auto", xs: "hidden" },
+        overflowX: { lg: "hidden", xs: "auto" },
       }}
     >
       {[...downloableImages].reverse().map((image, index) => (
-        <Grid2 container direction="column" spacing={2}>
+        <Grid2 container direction={{ lg: "column", xs: "row" }} spacing={2}>
           <Grid2 size={12}>
             <Stack
               position="relative"
-              width="100%"
+              width={{ lg: "100%", xs: 150 }}
               height={150}
               overflow="hidden"
               // borderRadius={1.25}

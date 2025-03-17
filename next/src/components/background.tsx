@@ -20,8 +20,6 @@ export default function Background({ children }: { children: React.ReactNode }) 
         position="absolute"
         top="50%"
         left="50%"
-        width="50%"
-        mx="auto"
         zIndex={1}
         sx={{ transform: "translate(-50%, -50%)" }}
       >

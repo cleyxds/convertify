@@ -26,10 +26,26 @@ export default function page() {
   return (
     <Stack component="main">
       <Background>
-        <Stack direction="row" alignItems="center" gap={3}>
+        <Stack
+          direction={{
+            lg: "row",
+            xs: "column",
+          }}
+          alignItems="center"
+          gap={3}
+        >
           <SideBar />
 
-          <Stack direction="row" height={400}>
+          <Stack
+            direction={{
+              lg: "row",
+              xs: "column",
+            }}
+            height={{
+              lg: 400,
+              xs: 800,
+            }}
+          >
             <Library />
             <LibraryDropArea
               hasDownloadList={hasDownloadList}
