@@ -44,7 +44,7 @@ const convertSchema = z.object({
   ),
 })
 
-fastify.post("/api/convert-images", async (request, reply) => {
+fastify.post("/convert-images", async (request, reply) => {
   const parts = await request.parts()
 
   const images: { filename: string; data: Buffer }[] = []
