@@ -28,11 +28,6 @@ export default function LibraryDropArea({
     setImages((images) => [...images, ...acceptedFiles.slice(0, 10)])
   }, [])
 
-  console.log(
-    "images",
-    images.map((image) => image.name)
-  )
-
   async function handleConvertImages() {
     try {
       setLoading(true)
