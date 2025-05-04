@@ -18,7 +18,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Convertify",
-  description: "A template for Next.js with MUI",
+  description:
+    "A web interface to convert images to various types such as WEBP, PNG, JPG",
 }
 
 export default async function RootLayout({
