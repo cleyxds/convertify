@@ -12,6 +12,8 @@ import Button from "@mui/material/Button"
 import MUIImage from "@/components/mui-image"
 import ImagesDropzone from "./images-dropzone"
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 export default function LibraryDropArea({
   onDownloadImages,
   hasDownloadList,
@@ -37,7 +39,7 @@ export default function LibraryDropArea({
         formData.append("images", image)
       })
 
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/convert-images`, {
+      await fetch(API_URL, {
         method: "POST",
         body: formData,
       })
