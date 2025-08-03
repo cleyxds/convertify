@@ -12,6 +12,8 @@ import Button from "@mui/material/Button"
 import MUIImage from "@/components/mui-image"
 import ImagesDropzone from "./images-dropzone"
 
+import { liquidGlassEffect } from "@/theme"
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function LibraryDropArea({
@@ -65,12 +67,15 @@ export default function LibraryDropArea({
       bgcolor="black.100"
       overflow="hidden"
       position="relative"
-      sx={{
-        backdropFilter: "blur(30px)",
-        borderTopRightRadius: hasDownloadList ? 0 : { lg: 12, xs: 0 },
-        borderBottomRightRadius: hasDownloadList ? 0 : 12,
-        borderBottomLeftRadius: hasDownloadList ? 0 : 12,
-      }}
+      sx={[
+        liquidGlassEffect,
+        {
+          backdropFilter: "blur(30px)",
+          borderTopRightRadius: hasDownloadList ? 0 : { lg: 12, xs: 0 },
+          borderBottomRightRadius: hasDownloadList ? 0 : 12,
+          borderBottomLeftRadius: 0,
+        },
+      ]}
     >
       {Boolean(images?.length) ? (
         <Stack position="relative" height="100%" width="100%" sx={{ overflowY: "auto" }}>
@@ -140,16 +145,19 @@ export default function LibraryDropArea({
           loading={loading}
           disabled={loading}
           variant="contained"
-          sx={{
-            bgcolor: "black.100",
-            color: "white.100",
-            transition: "opacity 0.3s",
-
-            "&:hover": {
-              opacity: 0.8,
+          sx={[
+            liquidGlassEffect,
+            {
+              bgcolor: "black.100",
+              color: "white.100",
               transition: "opacity 0.3s",
+
+              "&:hover": {
+                opacity: 0.8,
+                transition: "opacity 0.3s",
+              },
             },
-          }}
+          ]}
         >
           Converter
         </Button>

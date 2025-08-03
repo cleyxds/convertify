@@ -5,6 +5,8 @@ import Grid2 from "@mui/material/Grid2"
 
 import MUIImage from "@/components/mui-image"
 
+import { liquidGlassEffect } from "@/theme"
+
 export default function DownloadList({
   downloableImages,
 }: {
@@ -20,14 +22,17 @@ export default function DownloadList({
       bgcolor="black.100"
       position="relative"
       direction={{ lg: "column", xs: "row" }}
-      sx={{
-        backdropFilter: "blur(30px)",
-        borderTopRightRadius: { lg: 12, xs: 0 },
-        borderBottomRightRadius: 12,
-        borderBottomLeftRadius: { lg: 0, xs: 12 },
-        overflowY: { lg: "auto", xs: "hidden" },
-        overflowX: { lg: "hidden", xs: "auto" },
-      }}
+      sx={[
+        liquidGlassEffect,
+        {
+          backdropFilter: "blur(30px)",
+          borderTopRightRadius: { lg: 12, xs: 0 },
+          borderBottomRightRadius: 12,
+          borderBottomLeftRadius: { lg: 0, xs: 12 },
+          overflowY: { lg: "auto", xs: "hidden" },
+          overflowX: { lg: "hidden", xs: "auto" },
+        },
+      ]}
     >
       {[...downloableImages].reverse().map((image, index) => (
         <Grid2 container direction={{ lg: "column", xs: "row" }} spacing={2}>

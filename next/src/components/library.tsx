@@ -4,6 +4,8 @@ import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import SvgIcon from "@mui/material/SvgIcon"
 
+import { liquidGlassEffect } from "@/theme"
+
 export default function Library() {
   return (
     <Stack
@@ -13,13 +15,16 @@ export default function Library() {
       boxShadow={(theme: any) => theme.shadows.apple}
       bgcolor="black.100"
       overflow="hidden"
-      sx={{
-        backdropFilter: "blur(30px)",
-        borderTopLeftRadius: 12,
-        borderBottomLeftRadius: { lg: 12, xs: 0 },
-        borderTopRightRadius: { lg: 0, xs: 12 },
-        borderBottomRightRadius: { lg: 0, xs: 0 },
-      }}
+      sx={[
+        liquidGlassEffect,
+        {
+          backdropFilter: "blur(30px)",
+          borderTopLeftRadius: 12,
+          borderBottomLeftRadius: { lg: 12, xs: 0 },
+          borderTopRightRadius: { lg: 0, xs: 12 },
+          borderBottomRightRadius: { lg: 0, xs: 0 },
+        },
+      ]}
     >
       <Stack gap={2}>
         <Stack>

@@ -5,6 +5,8 @@ import Stack from "@mui/material/Stack"
 import Grid2 from "@mui/material/Grid2"
 import MUISvgIcon from "@mui/material/SvgIcon"
 
+import { liquidGlassEffect } from "@/theme"
+
 export default function SideBar() {
   return (
     <Stack
@@ -14,7 +16,7 @@ export default function SideBar() {
       boxShadow={(theme: any) => theme.shadows.apple}
       borderRadius={9999}
       bgcolor="black.100"
-      sx={{ backdropFilter: "blur(30px)" }}
+      sx={[liquidGlassEffect, { backdropFilter: "blur(30px)" }]}
     >
       <Grid2 container spacing={1.5}>
         <Grid2 size={12}>

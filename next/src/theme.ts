@@ -1,6 +1,6 @@
 "use client"
 
-import { createTheme } from "@mui/material/styles"
+import { createTheme, css } from "@mui/material/styles"
 
 declare module "@mui/material/styles" {
   interface CustomPaletteColor {
@@ -60,6 +60,12 @@ const theme = createTheme({
       },
     },
   },
+})
+
+export const liquidGlassEffect = css({
+  background: `linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)`,
+  boxShadow: `0 4px 32px 0 rgba(0,0,0,0.12), 0 1.5px 6px 0 rgba(255,255,255,0.08) inset`,
+  border: `1px solid rgba(255,255,255,0.12)`,
 })
 
 export default theme
